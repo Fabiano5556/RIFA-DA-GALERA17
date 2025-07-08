@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Rifa – Jaqueta Bobojaco</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; max-width:600px; margin: auto; }
+    .number { padding: 8px; border: 1px solid #ccc; cursor: pointer; }
+    .number.selected { background: #4caf50; color: white; cursor: default; }
+    button { padding: 10px 20px; font-size: 16px; margin: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Rifa – Jaqueta Bobojaco</h1>
+  <p>Valor do número: <strong>R$ 2,50</strong><br>Prêmio: Jaqueta estilo “bobojaco”</p>
+  <div class="grid" id="grid"></div>
+  <div id="actions" style="display:none;">
+    <p>Chave Pix: <strong>028999313329</strong> (Envie comprovante para <a href="https://wa.me/5528999313329" target="_blank">(28) 99931‑3329</a>)</p>
+    <button onclick="copyPix()">Copiar Pix</button>
+    <button onclick="window.location.href='https://wa.me/5528999313329?text=Meu comprovante da rifa%20-%20Número%20'+selected.innerText">Enviar comprovante</button>
+  </div>
+
+  <script>
+    const grid = document.getElementById('grid')
+    let selected = null
+    for(let i=1;i<=1000;i++){
+      const div = document.createElement('div')
+      div.textContent = i
+      div.className = 'number'
+      div.onclick = () => {
+        if (div.classList.contains('selected')) return
+        if (selected) selected.classList.remove('selected')
+        div.classList.add('selected')
+        selected = div
+        document.getElementById('actions').style.display = 'block'
+      }
+      grid.appendChild(div)
+    }
+    function copyPix(){
+      const pix = '028999313329'
+      navigator.clipboard.writeText(pix)
+      alert('Chave Pix copiada!')
+    }
+  </script>
+</body>
+</html>
